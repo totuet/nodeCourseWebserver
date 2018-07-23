@@ -14,7 +14,7 @@ app.use((req, res, next) => {
     fs.appendFile('server.log', `${now}: ${req.method} ${req.url} \n`, (err) => {
         if (err) throw err;
     });
-    console.log(now);
+    console.log(`${now}: ${req.method} ${req.url} `);
     next();
 });
 
@@ -56,6 +56,14 @@ app.get('/bad', (req, res) =>  {
         error: "page could not be get"
     });
 });
+
+app.get('/portfolio', (req, res) => {
+    res.render('portfolio.hbs', {
+        pageTitle: 'My portfolio title',
+        messagePortf: 'My first shitty portfolio on this shitty website'
+    });
+});
+
 app.listen(port, () => {
     console.log('server is up on port ' + port);
 });
